@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.beloushkin.android.learn.countries.R
 import com.beloushkin.android.learn.countries.model.Country
 import com.beloushkin.android.learn.countries.util.getProgressDrawable
+import com.beloushkin.android.learn.countries.util.loadImage
 
 import kotlinx.android.synthetic.main.item_country.view.*
 
@@ -38,8 +39,8 @@ class CountryListAdapter(var countries: ArrayList<Country>): RecyclerView.Adapte
 
         fun bind(country: Country) {
             countryName.text = country.countryName
-            //countryCapital.text = country.capital
-            //imageView.loadImage(country.flag, progressDrawable)
+            countryCapital.text = country.capital
+            imageView.loadImage(country.flag, progressDrawable)
         }
     }
 }
