@@ -4,14 +4,14 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.beloushkin.android.learn.countries.model.Country
 
-class ListViewModel {
+class ListViewModel:ViewModel() {
 
     val countries = MutableLiveData<List<Country>>()
     val countryLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
     fun refresh() {
-
+        fetchCountries()
     }
 
     private fun fetchCountries() {
