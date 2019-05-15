@@ -1,22 +1,16 @@
 package com.beloushkin.android.learn.countries.model
 
+import com.beloushkin.android.learn.countries.di.DaggerApiComponent
 import io.reactivex.Single
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class CountriesService {
 
-    private val BASE_URL = "https://raw.githubusercontent.com"
-    private val api: CountriesApi
+    @Inject
+    lateinit var api: CountriesApi
 
     init {
-        api = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(CountriesApi::class.java)
+        DaggerApiComponent.create().inject(this)
     }
 
     fun getCountries(): Single<List<Country>> {

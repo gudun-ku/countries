@@ -2,21 +2,29 @@ package com.beloushkin.android.learn.countries.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.beloushkin.android.learn.countries.di.DaggerApiComponent
 import com.beloushkin.android.learn.countries.model.CountriesService
 import com.beloushkin.android.learn.countries.model.Country
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class ListViewModel:ViewModel() {
 
-    private val countriesService = CountriesService()
+    @Inject
+    lateinit var countriesService: CountriesService
+
     private val disposable = CompositeDisposable()
 
     val countries = MutableLiveData<List<Country>>()
     val countryLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
+
+    init {
+        DaggerApiComponent.create().inject(this)
+    }
 
     fun refresh() {
         fetchCountries()
